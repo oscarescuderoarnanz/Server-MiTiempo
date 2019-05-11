@@ -1,0 +1,28 @@
+{% extends 'MiTiempo/base.html' %}
+
+{%block boton%}{%endblock%}
+
+	{% block content %}
+        <style>
+            h1{
+                text-align: center;
+            }
+
+			#formulario {float: right;background:red}
+        </style>
+		
+        <br></br>
+
+        <div class="content-box-blue">
+            <h1><b>Lista municipios entre temperaturas establecias ({{tmin}}-{{tmax}}):</b></h1>
+        </div>
+
+        <div class="content-box-yellow">
+            <ul><h2>
+                {% for m in mun%}
+                    <li>{{m}}</li>
+                {% endfor %}
+            </h2></ul>
+        </div>
+
+    {% endblock %}

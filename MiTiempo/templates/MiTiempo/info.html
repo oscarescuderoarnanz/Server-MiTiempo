@@ -1,0 +1,39 @@
+{% extends 'MiTiempo/base.html' %}
+
+{%block boton%}{%endblock%}
+
+	{% block content %}
+        <style>
+            h1{
+                text-align: center;
+            }
+        </style>
+		
+        <br></br>
+        <div class="content-box-blue">
+            <h1><b>Información</b></h1>
+        </div>
+
+        <div class="content-box-yellow">
+            <h2><u>Autor de la página:</u> Oscar Escudero Arnanz</h2>
+            <h2><u>Titulación:</u> Grado de Ingeniería en Tecnologías de la Telecomunicación (URJC)</h2>
+            <h2>Madrid, España</h2>
+
+        </div>
+
+        <div class="content-box-green">
+            <h2> Funcionamiento de la práctica </h2>
+			<p> Página web que aglutina información sobre municipios de España, principalmente informacion metereologica.</p>
+			<p> En esta aplicación podrás acceder sin registrarte, viendo la información buscada por otros usuarios los cuales
+				se han registrado. Tienes la posibilidad de registrarte, lo cual te permitira buscar informacion y llevar a cabo
+				otras funciones mas.
+			</p><p>
+				Además podrás personalizarte una página web personal para ti.
+			</p>
+        </div>
+
+
+    {% endblock %}
+
+	{% block XML %}
+	{% endblock %}

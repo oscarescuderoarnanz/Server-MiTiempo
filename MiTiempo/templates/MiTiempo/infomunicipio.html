@@ -1,0 +1,74 @@
+{% extends 'MiTiempo/base.html' %}
+
+{%block boton%}{%endblock%}
+
+	{% block content %}
+    <style>
+        h1{
+            text-align: center;
+        }
+
+		#form {
+			width:300px;
+			float: right;
+			border-radius: 10px;
+			font-family:raleway;
+			border: 5px solid #ccc;
+			padding: 30px 40px 25px;
+			margin-top: 0px;
+		}
+
+    </style>
+
+	{% if user.is_authenticated %}
+		<div class="content-box-green">
+			<div id = form>
+				<form  method="POST">
+					{% csrf_token %}
+					<p>Comentario: <input type="text" name="cmd" size="25"></p>
+					<p>
+					<input type="submit" value="Enviar">
+					<input type="reset" value="Borrar">
+					</p>
+				</form>
+			</div>
+		</div>
+	{% endif %}
+
+    <div class="content-box-blue">
+        <h1><b>Información {{m.nombre_municipio}}</b></h1>
+    </div>
+
+	<div id="comentarios">
+		<fieldset>
+			<legend><h4><b>Comentarios municipio:</b></h4></legend>
+			{% for cms in cms_munis %}
+				<h4><li><b>{{cms.texto}}</b></li></h4>
+				<h5><b><u>Comentado por {{cms.autor}}</u></b></h5>
+			{% endfor %}
+		</fieldset>
+	</div>
+
+    <div class="content-box-yellow">
+        <ul><h2>
+            <!---Datos persistentes-->
+			<li><u><b>Municipio:</b></u> {{mun.nombre_municipio}}</li>
+            <li><u><b>Latitud:</b></u> {{mun.latitud}}</li>
+            <li><u><b>Altitud:</b></u> {{mun.altitud}}</li>
+            <li><u><b>Longitud:</b></u> {{mun.longitud}}</li>
+            <li><u><b>ID municipio:</b></u> {{mun.municipio_id}}</li>
+            <li><u><b>Enlace:</b></u> <a href="{{mun.enlace}}">{{mun.nombre_municipio}}</a></li>
+            <!---Datos no persistentes-->
+            <br></br>
+            <li><u><b>Probabilidad de precipitacion:</b></u> {{mun.precipitaion}}</li>
+            <li><u><b>Estado cielo:</b></u> {{mun.descripcion}}</li>
+            <li><u><b>Temperatura máxima (ºC):</b></u> {{mun.tmax}}</li>
+            <li><u><b>Temperatura mínima (ºC):</b></u> {{mun.tmin}}</li>
+        </h2></ul>
+
+    </div>
+
+    {% endblock %}
+
+	{% block XML %}
+	{% endblock %}

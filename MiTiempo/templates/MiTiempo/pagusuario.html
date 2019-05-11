@@ -1,0 +1,101 @@
+{% extends 'MiTiempo/base.html' %}
+
+
+{%block changecss%}
+	<link rel="stylesheet" href="MiTiempo/usercss.css">
+{%endblock%}
+
+
+{%block boton%}{%endblock%}
+
+{% block content %}
+	<div class="content-box-green">
+		<h1>{{user.titulo}}</h1>
+	</div>
+
+	{% if muni_not_found %}
+		<div class="content-box-yellow">
+			<ul><h2>
+				<b>Municipio buscado: <u>{{mun}}</u> no encontrado.</b><br></br>
+				<b><a href = "{{ username }}">Volver página de usuario</a></b>
+			</h2></ul>
+		</div>
+	{% endif %}
+
+	{% if request.user.username == username %}
+		<p><h4>Busque cualquier municipio</h4></p>
+		<form action="{{ username }}" method="POST">
+			{% csrf_token %}
+			<label for="municipio"></label><input name="municipio" type="text">
+			<button type="submit">Municipio</button>
+		</form>
+
+		<p><h4>Puede cambiar el titulo de su página</h4></p>
+		<form action="{{ username }}" method="POST">
+			{% csrf_token %}
+			<label for="titulo"></label><input name="titulo" type="text">
+			<button type="submit">Change title</button>
+		</form>
+
+
+		<form action="{{ username }}" method="POST">
+			{% csrf_token %}
+			<h4>Selecciona un color para el background:</h4>
+			<input type="radio" name="bgcolor" value=1 checked> Azul<br>
+			<input type="radio" name="bgcolor" value=2 > Rojo<br>
+			<input type="radio" name="bgcolor" value=3 > Ninguno<br>
+			<button type="submit">Aplicar</button>
+		</form>
+
+
+		<form action="{{ username }}" method="POST">
+			{% csrf_token %}
+			<h4>Selecciona un color para el texto:</h4>
+			<input type="radio" name="cletras" value=1 checked> Negro<br>
+			<input type="radio" name="cletras" value=2 > Blanco<br>
+			<input type="radio" name="cletras" value=3 > Amarillo<br>
+			<button type="submit">Aplicar</button>
+		</form>
+
+
+		<form action="{{ username }}" method="POST">
+			{% csrf_token %}
+			<h4>Selecciona un tamaño para el texto:</h4>
+			<input type="radio" name="tletras" value=1 checked> Mediano<br>
+			<input type="radio" name="tletras" value=2> Grande<br>
+			<button type="submit">Aplicar</button>
+		</form>
+	{% endif %}
+
+	{% if not muni_not_found %}
+		<div class="content-box-blue">
+			<h4><u><b> Municipios buscados: </b></u></h4>
+			{% for m in municipios %}
+				<li><b><a href="{{m.enlace}}"> {{m.nombre_municipio}} </a></b></li>
+				<li><b><u>Altitud:</u></b> {{m.altitud}}</li>
+				<li><b><u>Latitud:</u></b> {{m.latitud}}</li>
+				<li><b><u>Longitud:</u></b> {{m.longitud}}</li>
+				<li><b><u>Prob. precipitaion:</u></b> {{m.precipitaion}}</li>
+				<li><b><u>Tª máxima:</u></b> {{m.tmax}}</li>
+				<li><b><u>Tª mínima:</u></b> {{m.tmin}}</li>
+				<li><b><u>Descripción:</u></b> {{m.descripcion}}</li>
+				<li><b><a href="municipios/{{m.municipio_id}}"> Más información </a></b></li>
+				{% if request.user.username == username %}
+					<form action ='{{username}}' method="POST">
+						{% csrf_token %}
+						<label for="titulo"></label><input name="quitar_muni" value="{{m.nombre_municipio}}" size='8' type="text">
+						<button type="submit">Quitar</button>
+				    </form>
+				{% endif %}
+				<br></br>
+			{% endfor %}
+		</div>
+	{% endif %}
+
+	<br></br>
+
+{% endblock %}
+
+{% block XML %}
+	<li><a href="{{username}}?format=xml">Descarga como fichero XML</a></li>
+{% endblock %}
